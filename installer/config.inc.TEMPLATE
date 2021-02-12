@@ -73,3 +73,6 @@ export NFS_OPTIONS='-o nolock,rw,noatime,nodiratime'
 #   openssl passwd -1 -salt <YOUR SALT> <YOUR PASSWORD>
 # Use the result to replace sample hash ($1$MYSALT$3Sy1OLRk4kTa7P6fvzwp71)
 # export PASSWD_SHADOW='root:$1$MYSALT$3Sy1OLRk4kTa7P6fvzwp71:10933:0:99999:7:::'
+
+# Enable ETHERNET SUPPORT - DEVICE MUST BE CONNECTED ON BOOT
+# export ETHERNET=1

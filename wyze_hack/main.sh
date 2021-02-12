@@ -89,14 +89,33 @@ set_passwd() {
 }
 
 wait_wlan() {
+    if [ "$ETHERNET" = "1" ];then
+        echo "WyzeHack: ethernet = 1"
+        if ! ifconfig | grep eth0; then
+            echo "WyzeHack: ethernet - eth0 UP"
+            /sbin/ifconfig eth0 up
+        fi
+
+        if ! ps | grep "udhcpc -i eth0" | grep -v grep; then 
+            echo "WyzeHack: ethernet - udhcpc"
+            /sbin/udhcpc -i eth0 -p /var/run/udhcpc_eth0.pid -b
+        fi                                                   
+    fi
+
     while true
     do
         if  ifconfig wlan0 | grep "inet addr";
         then
             break
         fi
-
         echo "WyzeHack: wlan0 not ready yet..."
+
+
+        if  ifconfig eth0 | grep "inet addr";
+        then
+            break
+        fi
+        echo "WyzeHack: eth0 not ready yet..."
         sleep 10
     done
 }
